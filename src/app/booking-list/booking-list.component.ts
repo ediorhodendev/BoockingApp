@@ -53,18 +53,36 @@ export class BookingListComponent implements OnInit {
     }
 }
 
-  editarRegistro(id: number): void {
-    alert("A Edição de registro ainda não está implantada!!")
-    console.log('Editar registro com ID:', id);
-  }
+
 
   buscarPorId(): void {
-    alert("dshjhks");
     const searchId = parseInt(this.searchIdInput.nativeElement.value, 10); // Converte a string para um número inteiro
-    this.bookingService.getBookingById(searchId).subscribe(booking => {
-      this.searchResult = booking;
-    });
+    this.bookingService.getBookingById(searchId).subscribe(
+      (booking: any) => {
+        if (booking) {
+          if (booking.customer && booking.vehicle) {
+            // Se o cliente e o veículo estiverem populados, atribua os dados da reserva ao searchResult
+            this.searchResult = booking;
+          } else {
+            // Se o cliente ou o veículo estiverem ausentes, exiba uma mensagem de erro
+            alert(`Reserva com ID ${searchId} está incompleta. Verifique os dados do cliente e do veículo.`);
+          }
+        } else {
+          // Se a reserva não for encontrada, exiba uma mensagem de erro
+          alert(`Reserva com ID ${searchId} não encontrada.`);
+        }
+      },
+      (error: any) => {
+        // Se ocorrer um erro ao buscar a reserva, exiba uma mensagem de erro
+        console.error("Erro ao buscar reserva por ID:", error);
+        alert(`Erro ao buscar reserva por ID: ${searchId}, verifique o ID digitado.`);
+      }
+    );
   }
+  
+
+  
+  
 
   formatarData(dateString: string): string {
     // Implemente a lógica de formatação de data aqui, se necessário

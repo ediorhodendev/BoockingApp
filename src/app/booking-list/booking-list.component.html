@@ -1,66 +1,96 @@
 <div class="container">
-    <h2 class="mt-4 mb-3">Buscar Reserva por ID</h2>
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="ID da Reserva" #searchIdInput>
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="button" (click)="buscarPorId()">Buscar</button>
-      </div>
-    </div>
-  
-    <h2 class="mt-4 mb-3">Resultado da Busca</h2>
-    <div class="table-responsive">
-      <table class="table table-striped table-bordered">
-        <!-- cabeçalho da tabela -->
-        <thead class="thead-dark">
-          <tr>
-            <th>ID</th>
-            <th>Data de Início</th>
-            <th>Data de Término</th>
-            <th>ID do Cliente</th>
-            <th>ID do Veículo</th>
-            <th>Status de Avaliação</th>
-            <th>Status de Comentário</th>
-            <th>Ações</th> <!-- Nova coluna para ações -->
-          </tr>
-        </thead>
-        <!-- corpo da tabela -->
-        <tbody>
-          <ng-container *ngIf="!searchResult"> <!-- Exibe todas as reservas -->
-            <tr *ngFor="let booking of bookings">
-              <td>{{ booking.id }}</td>
-              <td>{{ booking.startDate | date:'dd/MM/yyyy' }}</td>
-              <td>{{ booking.endDate | date:'dd/MM/yyyy' }}</td>
-              <td>{{ booking.customerId }}</td>
-              <td>{{ booking.vehicleId }}</td>
-              <td>{{ booking.ratingStatus ? 'Ativo' : 'Inativo' }}</td>
-              <td>{{ booking.commentStatus ? 'Ativo' : 'Inativo' }}</td>
-              <td> <!-- Coluna para ações -->
-                <button class="btn btn-danger" type="button" (click)="deletarRegistro(booking.id)">Deletar</button>
-                <button class="btn btn-primary" type="button" (click)="editarRegistro(booking.id)">Editar</button>
-              </td>
-            </tr>
-          </ng-container>
-          <ng-container *ngIf="searchResult"> <!-- Exibe apenas o resultado da busca -->
-            <tr>
-              <td>{{ searchResult.id }}</td>
-              <td>{{ searchResult.startDate | date:'dd/MM/yyyy' }}</td>
-              <td>{{ searchResult.endDate | date:'dd/MM/yyyy' }}</td>
-              <td>{{ searchResult.customerId }}</td>
-              <td>{{ searchResult.vehicleId }}</td>
-              <td>{{ searchResult.ratingStatus ? 'Ativo' : 'Inativo' }}</td>
-              <td>{{ searchResult.commentStatus ? 'Ativo' : 'Inativo' }}</td>
-              <td> <!-- Coluna para ações -->
-                <button class="btn btn-danger" type="button" (click)="deletarRegistro(searchResult.id)">Deletar</button>
-                <button class="btn btn-primary" type="button" (click)="editarRegistro(searchResult.id)">Editar</button>
-              </td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
-  
-    <div class="mt-4">
-      <button class="btn btn-primary" type="button" (click)="listarTodos()">Listar Todos</button>
+  <h2 class="mt-4 mb-3">Buscar Reserva por ID</h2>
+  <!-- Input para buscar por ID -->
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="ID da Reserva" #searchIdInput>
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button" (click)="buscarPorId()">Buscar</button>
     </div>
   </div>
-  
+
+  <!-- Título para o resultado da busca -->
+  <h2 class="mt-4 mb-3">Resultado da Busca</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <!-- Cabeçalho da tabela -->
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Data de Início</th>
+          <th>Data de Término</th>
+          <th>Cliente</th> <!-- Nova coluna para Cliente -->
+          <th>Email</th>
+          <th>Telefone</th>
+          <th>Veículo</th> <!-- Nova coluna para Veículo -->
+          <th>Ano</th>
+          <th>Número de Registro</th>
+          <th>Status de Avaliação</th>
+          <th>Status de Comentário</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <!-- Corpo da tabela -->
+      <tbody>
+        <!-- Verificar se há resultado da busca -->
+        <ng-container *ngIf="!searchResult">
+          <!-- Exibir todas as reservas -->
+          <tr *ngFor="let booking of bookings">
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.startDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ booking.endDate | date:'dd/MM/yyyy' }}</td>
+            <!-- Exibir o nome do cliente -->
+            <td>{{ booking.customer ? booking.customer.name : 'N/A' }}</td>
+            <!-- Exibir o email do cliente -->
+            <td>{{ booking.customer ? booking.customer.email : 'N/A' }}</td>
+            <!-- Exibir o telefone do cliente -->
+            <td>{{ booking.customer ? booking.customer.phoneNumber : 'N/A' }}</td>
+            <!-- Exibir o modelo do veículo -->
+            <td>{{ booking.vehicle ? booking.vehicle.model : 'N/A' }}</td>
+            <!-- Exibir o ano do veículo -->
+            <td>{{ booking.vehicle ? booking.vehicle.year : 'N/A' }}</td>
+            <!-- Exibir o número de registro do veículo -->
+            <td>{{ booking.vehicle ? booking.vehicle.registrationNumber : 'N/A' }}</td>
+            <td>{{ booking.ratingStatus ? 'Ativo' : 'Inativo' }}</td>
+            <td>{{ booking.commentStatus ? 'Ativo' : 'Inativo' }}</td>
+            <td>
+              <button class="btn btn-danger" type="button" (click)="deletarRegistro(booking.id)">Deletar</button>
+             
+            </td>
+          </tr>
+        </ng-container>
+        <!-- Verificar se há resultado da busca -->
+        <ng-container *ngIf="searchResult">
+          <!-- Exibir apenas o resultado da busca -->
+          <tr>
+            <td>{{ searchResult.id }}</td>
+            <td>{{ searchResult.startDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ searchResult.endDate | date:'dd/MM/yyyy' }}</td>
+            <!-- Exibir o nome do cliente -->
+            <td>{{ searchResult.customer ? searchResult.customer.name : 'N/A' }}</td>
+            <!-- Exibir o email do cliente -->
+            <td>{{ searchResult.customer ? searchResult.customer.email : 'N/A' }}</td>
+            <!-- Exibir o telefone do cliente -->
+            <td>{{ searchResult.customer ? searchResult.customer.phoneNumber : 'N/A' }}</td>
+            <!-- Exibir o modelo do veículo -->
+            <td>{{ searchResult.vehicle ? searchResult.vehicle.model : 'N/A' }}</td>
+            <!-- Exibir o ano do veículo -->
+            <td>{{ searchResult.vehicle ? searchResult.vehicle.year : 'N/A' }}</td>
+            <!-- Exibir o número de registro do veículo -->
+            <td>{{ searchResult.vehicle ? searchResult.vehicle.registrationNumber : 'N/A' }}</td>
+            <td>{{ searchResult.ratingStatus ? 'Ativo' : 'Inativo' }}</td>
+            <td>{{ searchResult.commentStatus ? 'Ativo' : 'Inativo' }}</td>
+            <td>
+              <button class="btn btn-danger" type="button" (click)="deletarRegistro(searchResult.id)">Deletar</button>
+             
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Botão para listar todas as reservas -->
+  <div class="mt-4">
+    <button class="btn btn-primary" type="button" (click)="listarTodos()">Listar Todos</button>
+  </div>
+</div>
