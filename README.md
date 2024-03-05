@@ -1,27 +1,23 @@
-# BookingApp
+# Sistema de Cadastro de Veículo
+Este é um sistema desenvolvido em Angular para utilizar a API Boocking.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.11.
+## Funcionalidades
+Listar todos os registros de veículos cadastrados.
+Listar um registro específico por ID.
+Deletar um registro de veículo.
+## Pré-requisitos
+Para utilizar o sistema, é necessário ter as seguintes dependências instaladas:
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Node.js versão 20.11.0 ou superior.
+Angular CLI versão 16.2.11.
+## Utilização
+Certifique-se de que a API Boocking esteja inicializada antes de iniciar o sistema.
+Após iniciar a aplicação, a tela inicial mostrará 10 registros de veículos cadastrados.
+## Executando a Aplicação
+Clone o repositório para sua máquina local.
+Navegue até o diretório do projeto.
+Execute npm install para instalar as dependências.
+Execute ng serve para iniciar a aplicação.
+Abra o navegador e acesse http://localhost:4200/ para utilizar o sistema.
+Contato
+Para mais informações, entre em contato através do email: ediorhoden@gmail.com
